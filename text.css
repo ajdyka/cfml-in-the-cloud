@@ -1,0 +1,49 @@
+@font-face {
+	font-family: 'Architects Daughter';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Architects Daughter'), local('ArchitectsDaughter'), url('http://themes.googleusercontent.com/static/fonts/architectsdaughter/v1/RXTgOOQ9AAtaVOHxx0IUBF5f9YK0z_CKegLiCihVlJo.ttf') format('truetype'); 
+}
+
+html {
+	background-image: url('bg.png')
+}
+
+.slide {
+	font-family: "Architects Daughter";
+	color: #ffffff; 
+}
+
+.slide:first-of-type h1, body .section-title>h1 {
+	font-size: 90px;
+	text-align: center; 
+}
+
+.slide h1 {
+	font-size: 60px;
+	text-align: center;
+}
+
+.slide:first-of-type h2 {
+	font-size: 40px;
+}
+
+.slide h2 {
+	font-size: 40px;
+	text-align: center; 
+}
+
+.slide ul {
+	font-size: 45px; 
+}
+
+.slide li {
+	list-style-type: none; 
+}
+
+.slide .code {
+	font-family: "Courier New", "Courier", monospace;
+	font-size: 40px;
+	white-space: pre;
+	}
+	
