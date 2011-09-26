@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<title>CFML in the Cloud</title>
+	<link rel="stylesheet" media="all" type="text/css" href="css/layout.css"  />	
+	<link rel="stylesheet" media="all and (width:600px)" type="text/css" href="css/layoutEmbedded.css"  />	
+	<link rel="stylesheet" type="text/css" href="css/text.css"  />	
+	<link rel="stylesheet" media="all and (width:600px)" type="text/css" href="css/textEmbedded.css"  />	
+	<script src="js/speakeasy.js"></script>
+
+</head>
+<body>
+
+<section id="presentation">
+<!-- the presentation is a number of sections with the class slide-->
+
+	<section class="slide presentation-title" id="current-slide">
+		<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
+		
+		<h1>CFML in the Cloud</h1>
+		<h2>AJ Dyka @ajdyka</h2>
+	</section>
+	
+	<section class="slide bullets-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Summary</h1>
+		<ul>
+			<li>Setting up a Ninefold micro instance</li>
+			<li>Installing Apache, a Coldfusion Engine, mysql, svn</li>
+			<li>Configuring apache for multiple sites using VirtualDocumentRoot</li>
+			<li>Scripted site deployments from svn</li>
+			<li>Questions</li>
+		</ul>
+
+	</section>
+	
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Setting up a Ninefold micro instance</h1>
+	</section>
+
+	<section class="slide bullets-without-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Setting up Ninefold</h1>
+		<ul>
+			<li>What do I choose?</li>
+			<ul>
+				<li>XEN Basic Ubuntu 10.04 Server x64 PV r2.0</li>
+				<li>Compute Micro</li>
+			</ul>
+			<li>What else?</li>
+			<ul>
+				<li>Enable static NAT</li>
+				<li>forward TCP ports 22, 80, 3306, 8080</li>
+			</ul>
+		</ul>
+	</section>
+	
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Installing Apache, a Coldfusion Engine, mysql, svn</h1>
+	</section>
+
+	<section class="slide code-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>apt-get is your friend</h1>
+		<section class="code">
+sudo apt-get update
+sudo apt-get install apache2
+sudo apt-get install tomcat 6
+sudo apt-get install mysql-server mysql-client
+sudo apt-get install subversion libapache2-svn
+		</section>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>What is VirtualDocumentRoot?</h1>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Using SVN</h1>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Tying it all together!</h1>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Questions?</h1>
+	</section>
+
+	<section class="slide presentation-title">
+		<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
+		<h1>Thank you</h1>
+		<h3>CFML in the Cloud</h3>
+		<h3>AJ Dyka @ajdyka</h3>
+		<h3>https://github.com/ajdyka/cfml-in-the-cloud</h3>
+	</section>
+
+</section> <!-- presentation -->
+<footer id="controls">
+<ul>
+	<li><input type="number" min="1" step="1" value="1"></li>
+	<li><a href="#" rel="last">&#9199;</a></li>
+	<li><a href="#" rel="next">&#9654;</a></li>
+	<li><a href="#" rel="previous">&#9664;</a></li>
+	<li><a href="#" rel="home">&#9198;</a></li>
+
+</ul>
+</footer>
+
+</body>
+</html>

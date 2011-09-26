@@ -50,6 +50,13 @@ top: 30%}
 	left: 5%;
 	top: 130px}
 
+.slide>h3 {
+	position: relative;
+	width: 90%;
+	left: 5%;
+	top: 200px
+	}
+
 .slide li {
 	margin-bottom: .2em}
 

@@ -14,7 +14,7 @@ html {
 	color: #ffffff; 
 }
 
-.slide:first-of-type h1, body .section-title>h1 {
+.slide:first-of-type h1, .slide:last-of-type h1, body .section-title>h1 {
 	font-size: 90px;
 	text-align: center; 
 }
@@ -28,7 +28,7 @@ html {
 	font-size: 40px;
 }
 
-.slide h2 {
+.slide h2, .slide h3 {
 	font-size: 40px;
 	text-align: center; 
 }

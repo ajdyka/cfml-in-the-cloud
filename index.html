@@ -103,7 +103,10 @@ touch /wwwroot/apug.railo/www/index.cfm
 
 # enable proxy support
 sudo a2enmod proxy
+sudo a2enmod proxy_ajp
+sudo a2enmod proxy_http
 sudo a2enmod vhost_alias
+sudo /etc/init.d/apache2 restart
 
 sudo pico /etc/apache2/httpd.conf
 
@@ -209,6 +212,12 @@ sudo pico web.xml
 	&lt;url-pattern>*.cfc&lt;/url-pattern>
 &lt;/servlet-mapping>
 
+&lt;welcome-file-list&gt;
+	...
+    &lt;welcome-file&gt;index.cfm&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;index.cfml&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+
 sudo pico catalina.properties
 
 # to load the railo jars
@@ -295,6 +304,15 @@ sudo svnadmin create /home/svn/cfml
 			</section>
 
 		</section>	
+
+		<section class="slide presentation-title">
+			<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
+
+			<h1>Thank you</h1>
+			<h3>CFML in the Cloud</h3>
+			<h3>AJ Dyka @ajdyka</h3>
+			<h3>https://github.com/ajdyka/cfml-in-the-cloud</h3>
+		</section>
 
 
 </section> <!-- presentation -->
