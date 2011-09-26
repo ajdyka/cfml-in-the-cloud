@@ -31,7 +31,6 @@
 			<li>Configuring apache for multiple sites using VirtualDocumentRoot</li>
 			<li>Scripted site deployments from svn</li>
 			<li>Questions</li>
-			<li>Bonus content!</li>
 		</ul>
 
 	</section>
@@ -39,27 +38,25 @@
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
 		<h1>Setting up a Ninefold micro instance</h1>
-
 	</section>
 
-	<section class="slide code-with-title">
+	<section class="slide bullets-without-title">
 		<!-- each slide is a section of class slide -->
-		<h1>Code example</h1>
-
-		<section class="code">
-lorum ipsum
-		</section>
-		
+		<h1>Setting up Ninefold</h1>
+		<ul>
+			<li>Create a new instance</li>
+			<ul>
+				<li>XEN Basic Ubuntu 10.04 Server x64 PV r2.0</li>
+				<li>Compute Micro</li>
+			</ul>
+			<li>Allocate a public IP</li>
+			<ul>
+				<li>Enable static NAT</li>
+				<li>forward TCP ports 22, 80, 3306, 8080</li>
+			</ul>
+			<li><br/><strong>ssh into the server!</strong></li>
+		</ul>
 	</section>
-		
-	<section class="slide code-without-title">
-		<!-- each slide is a section of class slide -->
-
-		<section class="code">
-ipsum lorum
-		</section>
-
-	</section>	
 	
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
@@ -67,10 +64,198 @@ ipsum lorum
 
 	</section>
 
-	<section class="slide section-title">
+	<section class="slide code-with-title">
 		<!-- each slide is a section of class slide -->
-		<h1>Configuring apache for multiple sites using VirtualDocumentRoot</h1>
+		<h1>Package Installation</h1>
+		<h2>apache</h2>
+		<section class="code">
+# update package install locations
+sudo apt-get update
 
+# install apache
+sudo apt-get install apache2
+
+# test apache
+# http://my.vm.ip/
+		</section>
+	</section>
+
+		<section class="slide code-with-title">
+			<!-- each slide is a section of class slide -->
+			<h1>Package Installation</h1>
+			<h2>more apache</h2>
+			<section class="code">
+
+# create an entry in your local hosts file
+mate /etc/hosts
+my.vm.ip	www.apug.railo
+
+# back to the server
+# fix group permissions for tomcat
+sudo usermod -g ubuntu tomcat6
+
+# create the new webroot
+sudo mkdir /wwwroot
+sudo chown ubuntu:ubuntu -R /wwwroot
+mkdir /wwwroot/apug.railo
+mkdir /wwwroot/apug.railo/www
+touch /wwwroot/apug.railo/www/index.cfm
+
+# enable proxy support
+sudo a2enmod proxy
+sudo a2enmod vhost_alias
+
+sudo pico /etc/apache2/httpd.conf
+
+&lt;IfModule mod_jk.c&gt;
+	JkMount /*.cfm ajp13
+	JkMount /*.cfc ajp13
+	JkMount /*.do ajp13
+	JkMount /*.jsp ajp13
+	JkMount /*.cfchart ajp13
+	JkMount /*.cfres ajp13
+	JkMountCopy all
+	JkLogFile /var/log/apache2/mod_jk.log
+&lt;/IfModule&gt;
+
+&lt;Directory "/wwwroot"&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;
+
+&lt;VirtualHost *:80&gt;
+
+	VirtualDocumentRoot /wwwroot/%2+/%1
+
+	DirectoryIndex index.php index.html index.htm index.cfm
+
+	#Proxy .cfm requests to railo
+	&lt;IfModule mod_proxy_ajp.c&gt;
+		&lt;Proxy *&gt;
+			Order deny,allow
+			Allow from all
+		&lt;/Proxy&gt;
+		ProxyPassMatch ^/(.*\.cfm)$     ajp://localhost:8009/$1
+		ProxyPassMatch ^/(.*\.cfm\*)$   ajp://localhost:8009/$2
+		ProxyPassReverse / ajp://localhost:8009/
+	&lt;/IfModule&gt;
+
+&lt;/VirtualHost&gt;
+
+			</section>
+		</section>
+
+	<section class="slide code-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Package Installation - continued ...</h1>
+		<h2>tomcat</h2>
+		<section class="code">
+# update package install locations
+sudo apt-get install tomcat 6
+
+# test tomcat
+# http://my.vm.ip:8080/
+		</section>
+	</section>
+
+	<section class="slide code-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Package Installation - continued ...</h1>
+		<h2>mysql</h2>
+		<section class="code">
+# update package install locations
+sudo apt-get install mysql-server mysql-client
+
+# test mysql
+# connect using your favourite mysql UI
+		</section>
+	</section>
+
+	<section class="slide code-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Package Installation - continued ...</h1>
+		<h2>Railo</h2>
+		<section class="code">
+# download railo
+cd /opt
+sudo wget http://www.getrailo.org/down.cfm?item=/railo/remote/download/3.2.3.000/custom/all/railo-3.2.3.000-jars.tar.gz
+sudo mv down.cfm\?item\=%2Frailo%2Fremote%2Fdownload%2F3.2.3.000%2Fcustom%2Fall%2Frailo-3.2.3.000-jars.tar.gz railo.tar.gz
+sudo tar vxzf railo.tar.gz
+sudo chown tomcat6:tomcat6 -R railo-3.2.3.000-jars/
+cd railo-3.2.3.000-jars
+
+# install railo into tomcat
+cd ../tomcat6
+sudo pico web.xml
+
+# add inside the &lt;web-app> node
+&lt;servlet>
+	&lt;servlet-name>CFMLServlet&lt;/servlet-name>
+	&lt;servlet-class>railo.loader.servlet.CFMLServlet&lt;/servlet-class>
+	&lt;init-param>
+		&lt;param-name>configuration&lt;/param-name>
+		&lt;param-value>{web-root-directory}/WEB-INF/railo/&lt;/param-value>
+		&lt;description>Configuraton directory&lt;/description>
+	&lt;/init-param>
+	&lt;load-on-startup>1&lt;/load-on-startup>
+&lt;/servlet>
+
+&lt;servlet-mapping>
+	&lt;servlet-name>CFMLServlet&lt;/servlet-name>
+	&lt;url-pattern>*.cfm&lt;/url-pattern>
+	&lt;url-pattern>*.cfml&lt;/url-pattern>
+	&lt;url-pattern>*.cfc&lt;/url-pattern>
+&lt;/servlet-mapping>
+
+sudo pico catalina.properties
+
+# to load the railo jars
+shared.loader=...,/opt/railo-3.2.3.000-jars/*.jar
+
+# restart tomcat
+sudo /etc/init.d/tomcat6 restart
+
+
+		</section>
+	</section>
+
+	<section class="slide code-with-title">
+		<!-- each slide is a section of class slide -->
+		<h1>Package Installation - continued ...</h1>
+		<h2>svn</h2>
+		<section class="code">
+# install svn
+sudo apt-get install subversion libapache2-svn
+
+# prapare apache for svn
+sudo pico /etc/apache2/mods-available/dav_svn.conf
+
+&lt;Location /svn/>
+	DAV svn
+	SVNPath /home/svn
+	SVNListParentPath On
+	AuthType Basic
+	AuthName "Subversion Repository"
+	AuthUserFile /etc/subversion/passwd
+	Require valid-user
+&lt;/Location>
+
+sudo chown -R www-data:www-data /home/svn
+
+sudo htpasswd -c /etc/subversion/passwd ajdyka
+
+# restart apache to activate changes
+sudo /etc/init.d/apache2 restart
+
+# create a repository
+sudo svnadmin create /home/svn/cfml
+
+# test apache
+# http://my.vm.ip/svn
+
+		</section>
 	</section>
 
 	<section class="slide section-title">
@@ -78,6 +263,7 @@ ipsum lorum
 		<h1>Scripted site deployments from svn</h1>
 
 	</section>
+
 
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
@@ -90,6 +276,25 @@ ipsum lorum
 		<h1>still time to go?</h1>
 
 	</section>
+
+		<section class="slide code-with-title">
+			<!-- each slide is a section of class slide -->
+			<h1>Code example</h1>
+
+			<section class="code">
+	lorum ipsum
+			</section>
+
+		</section>
+
+		<section class="slide code-without-title">
+			<!-- each slide is a section of class slide -->
+
+			<section class="code">
+	ipsum lorum
+			</section>
+
+		</section>	
 
 
 </section> <!-- presentation -->
