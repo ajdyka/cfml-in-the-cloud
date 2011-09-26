@@ -32,7 +32,6 @@
 			<li>Scripted site deployments from svn</li>
 			<li>Questions</li>
 		</ul>
-
 	</section>
 	
 	<section class="slide section-title">
@@ -40,7 +39,7 @@
 		<h1>Setting up a Ninefold micro instance</h1>
 	</section>
 
-	<section class="slide bullets-without-title">
+	<section class="slide bullets-with-title">
 		<!-- each slide is a section of class slide -->
 		<h1>Setting up Ninefold</h1>
 		<ul>
@@ -59,7 +58,7 @@
 	
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
-		<h1>Installing Apache, a Coldfusion Engine, mysql, svn</h1>
+		<h1>Installing Apache, a ColdFusion Engine, mysql, svn</h1>
 	</section>
 
 	<section class="slide code-with-title">
@@ -68,15 +67,57 @@
 		<section class="code">
 sudo apt-get update
 sudo apt-get install apache2
-sudo apt-get install tomcat 6
+sudo apt-get install tomcat6
 sudo apt-get install mysql-server mysql-client
 sudo apt-get install subversion libapache2-svn
 		</section>
 	</section>
 
 	<section class="slide section-title">
-		<!-- each slide is a section of class slide -->
+		<h1>I choose Railo</h1>
+	</section>
+
+	<section class="slide section-title">
 		<h1>What is VirtualDocumentRoot?</h1>
+	</section>
+
+	<section class="slide code-without-title">
+		<!-- each slide is a section of class slide -->
+		<section class="code">
+0		the whole name
+1		the first part
+2		the second part
+-1		the last part
+-2		the penultimate part
+2+		the second and all subsequent parts
+-2+		the penultimate and all preceding parts
+		</section>
+
+	</section>
+
+	<section class="slide code-without-title">
+		<!-- each slide is a section of class slide -->
+	<section class="code">
+&lt;VirtualHost *:80&gt;
+
+	VirtualDocumentRoot /wwwroot/%2+/%1
+
+	DirectoryIndex index.php index.html index.htm index.cfm
+
+	#Proxy .cfm requests to railo
+	&lt;IfModule mod_proxy_ajp.c&gt;
+		&lt;Proxy *&gt;
+			Order deny,allow
+			Allow from all
+		&lt;/Proxy&gt;
+		ProxyPassMatch ^/(.*\.cfm)$     ajp://localhost:8009/$1
+		ProxyPassMatch ^/(.*\.cfm\*)$   ajp://localhost:8009/$2
+		ProxyPassReverse / ajp://localhost:8009/
+	&lt;/IfModule&gt;
+
+&lt;/VirtualHost&gt;
+	</section>
+
 	</section>
 
 	<section class="slide section-title">
@@ -86,7 +127,7 @@ sudo apt-get install subversion libapache2-svn
 
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
-		<h1>Tying it all together!</h1>
+		<h1>Tying it all together with deploy scripts!</h1>
 	</section>
 
 	<section class="slide section-title">
@@ -99,20 +140,13 @@ sudo apt-get install subversion libapache2-svn
 		<h1>Thank you</h1>
 		<h3>CFML in the Cloud</h3>
 		<h3>AJ Dyka @ajdyka</h3>
-		<h3>https://github.com/ajdyka/cfml-in-the-cloud</h3>
+		<h3>http://github.com/ajdyka/cfml-in-the-cloud</h3>
+		<br/>
+		<h3>Goodies from Railo!</h3>
+		<h3>Try Ninefold with promo code QCHRS711 for $75 starting credit</h3>
 	</section>
 
 </section> <!-- presentation -->
-<footer id="controls">
-<ul>
-	<li><input type="number" min="1" step="1" value="1"></li>
-	<li><a href="#" rel="last">&#9199;</a></li>
-	<li><a href="#" rel="next">&#9654;</a></li>
-	<li><a href="#" rel="previous">&#9664;</a></li>
-	<li><a href="#" rel="home">&#9198;</a></li>
-
-</ul>
-</footer>
 
 </body>
 </html>

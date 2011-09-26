@@ -1,0 +1,49 @@
+= CFML in the Cloud
+
+== Summary
+
+ - list of key points to cover
+
+== Setting up a Ninefold micro instance
+
+ - what to choose
+
+ - why did I choose Ninefold?
+  - Completely self service
+  - Only pay for what you use
+  - No minimum spend. No plans
+  - Low latency for extremely fast speeds!
+  - Australian support and billing
+  - Your data stays in Australia
+ - ports required for public access
+
+== Installing Apache, a ColdFusion Engine, mysql, svn
+
+ - apt-get is your friend
+
+ - apt-get, simple package manage for debian linux based distrubutions
+   one stop shop for all your packaging needs
+
+== I choose Railo
+
+ - open source CFML engine
+ - high performance alternative to ACF
+ - compatible with ACF9
+ - frequent updates, at least every couple of weeks
+
+== What is VirtualDocumentRoot?
+
+ - example vhost
+
+== Using SVN
+
+ - checkout, coding, committing
+
+== Tying it all together with deploy scripts!
+
+ - deploy a site
+ - have a look at the script
+
+== Questions
+
+== Thank you
