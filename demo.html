@@ -19,7 +19,8 @@
 		<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
 		
 		<h1>CFML in the Cloud</h1>
-		<h2>AJ Dyka @ajdyka</h2>
+		<h2>AJ Dyka @ajdyka<br/><br/><br/>
+			<img src="images/qrcode.aj.learnosity.png" width="400" height="400"></h2>
 	</section>
 	
 	<section class="slide bullets-with-title">
@@ -58,6 +59,11 @@
 	
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
+		<h1>Ninefold UI Demo</h1>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
 		<h1>Installing Apache, a ColdFusion Engine, mysql, svn</h1>
 	</section>
 
@@ -73,31 +79,51 @@ sudo apt-get install subversion libapache2-svn
 		</section>
 	</section>
 
-	<section class="slide section-title">
+	<section class="slide code-with-title">
 		<h1>I choose Railo</h1>
+		<section class="code">
+# there isn't an apt-get installer for Railo ... yet!
+sudo wget http://www.getrailo.org/down.cfm?item=/railo/remote/download/3.2.3.000/custom/all/railo-3.2.3.000-jars.tar.gz
+
+# a few additional steps to extract and setup ...
+
+# update tomcat/catalina.out
+# update tomcat/web.xml
+
+# restart tomcat and you're ready to proceed!
+		</section>
 	</section>
 
 	<section class="slide section-title">
 		<h1>What is VirtualDocumentRoot?</h1>
 	</section>
 
-	<section class="slide code-without-title">
+	<section class="slide code-with-title">
 		<!-- each slide is a section of class slide -->
+		<h1>VirtualDocumenRoot in action</h1>
 		<section class="code">
-0		the whole name
-1		the first part
-2		the second part
--1		the last part
--2		the penultimate part
-2+		the second and all subsequent parts
--2+		the penultimate and all preceding parts
+VirtualDocumentRoot /wwwroot/%2+/%1
+
+# example: www.google.com
+
+# 0	the whole name
+# 1	the first part
+# 2	the second part
+# -1	the last part
+# -2	the penultimate part
+# 2+	the second and all subsequent parts
+# -2+	the penultimate and all preceding parts
+
+# resolved path
+# VirtualDocumentRoot /wwwroot/google.com/www
 		</section>
 
 	</section>
 
-	<section class="slide code-without-title">
+	<section class="slide code-with-title">
 		<!-- each slide is a section of class slide -->
-	<section class="code">
+		<h1>vhost entry for apache</h1>
+		<section class="code">
 &lt;VirtualHost *:80&gt;
 
 	VirtualDocumentRoot /wwwroot/%2+/%1
@@ -116,13 +142,13 @@ sudo apt-get install subversion libapache2-svn
 	&lt;/IfModule&gt;
 
 &lt;/VirtualHost&gt;
-	</section>
+		</section>
 
 	</section>
 
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
-		<h1>Using SVN</h1>
+		<h1>Apache vhost demo</h1>
 	</section>
 
 	<section class="slide section-title">
@@ -132,18 +158,30 @@ sudo apt-get install subversion libapache2-svn
 
 	<section class="slide section-title">
 		<!-- each slide is a section of class slide -->
+		<h1>Deploy script demo</h1>
+	</section>
+
+	<section class="slide section-title">
+		<!-- each slide is a section of class slide -->
 		<h1>Questions?</h1>
 	</section>
+
+	<section class="slide presentation-title">
+		<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
+		<h1>It's Movember!</h1>
+		<h3><img src="images/movember.jpg" width="317" height="400"></h3>
+		<h3>If you want to sponsor me:</h3>
+		<h3>http://mobro.co/ajdyka</h3>
+		</section>
 
 	<section class="slide presentation-title">
 		<!-- each slide is a section of class slide, with different types of slides, including presentation title -->
 		<h1>Thank you</h1>
 		<h3>CFML in the Cloud</h3>
 		<h3>AJ Dyka @ajdyka</h3>
+		<h3><img src="images/qrcode.aj.learnosity.png" width="400" height="400"></h3>
 		<h3>http://github.com/ajdyka/cfml-in-the-cloud</h3>
-		<br/>
-		<h3>Goodies from Railo!</h3>
-		<h3>Try Ninefold with promo code QCHRS711 for $75 starting credit</h3>
+		<h3>http://mobro.co/ajdyka</h3>
 	</section>
 
 </section> <!-- presentation -->
